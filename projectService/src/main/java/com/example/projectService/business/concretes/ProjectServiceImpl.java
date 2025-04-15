@@ -1,6 +1,7 @@
 package com.example.projectService.business.concretes;
 
 
+import com.example.common.dto.AddProjectResponseDTO;
 import com.example.projectService.business.abstracts.ProjectService;
 import com.example.projectService.core.mapper.MapperService;
 import com.example.projectService.core.utils.MessageConstant;
@@ -13,7 +14,6 @@ import com.example.projectService.library.ProjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,7 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectResponseDto> getAllProjects() {
-        return projectRepository.findAll().stream().map(mapperService::toResponse).collect(Collectors.toList());
+        return projectRepository.findAll().stream().map(mapperService::toResponseDto).collect(Collectors.toList());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public ProjectResponseDto getById(String id) {
+    public AddProjectResponseDTO getById(String id) {
         UUID projectId = UUID.fromString(id);
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ProjectNotFoundException(MessageConstant.PROJECT_ID_NOT_FOUND));

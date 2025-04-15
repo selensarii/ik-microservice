@@ -1,5 +1,6 @@
 package com.example.projectService.business.abstracts;
 
+import com.example.common.dto.AddProjectResponseDTO;
 import com.example.projectService.dtos.request.CreateProjectRequestDTO;
 import com.example.projectService.dtos.request.UpdateProjectRequestDTO;
 import com.example.projectService.dtos.response.*;
@@ -11,7 +12,7 @@ public interface ProjectService {
 
     List<ProjectResponseDto> getAllProjects();
     Project findById(String id);
-    ProjectResponseDto getById(String id);
+    AddProjectResponseDTO getById(String id);
     void deleteProject(String id);
 
     UpdateProjectResponseDTO updateProject(UpdateProjectRequestDTO updateProjectRequestDTO);

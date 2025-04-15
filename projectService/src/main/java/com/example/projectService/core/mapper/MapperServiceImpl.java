@@ -1,5 +1,6 @@
 package com.example.projectService.core.mapper;
 
+import com.example.common.dto.AddProjectResponseDTO;
 import com.example.projectService.dtos.request.CreateProjectRequestDTO;
 import com.example.projectService.dtos.response.CreateProjectResponseDTO;
 import com.example.projectService.dtos.response.ProjectResponseDto;
@@ -11,7 +12,17 @@ import org.springframework.stereotype.Service;
 public class MapperServiceImpl implements MapperService {
 
     @Override
-    public ProjectResponseDto toResponse(Project project) {
+    public AddProjectResponseDTO toResponse(Project project) {
+        return new AddProjectResponseDTO(
+                project.getId(),
+                project.getName(),
+                project.getMaxEmployee(),
+                project.getMinEmployee(),
+                project.getTotalEmployee()
+        );
+    }
+    @Override
+    public ProjectResponseDto toResponseDto(Project project) {
         return new ProjectResponseDto(
                 project.getId(),
                 project.getName(),
@@ -20,6 +31,7 @@ public class MapperServiceImpl implements MapperService {
                 project.getTotalEmployee()
         );
     }
+
 
     @Override
     public Project toEntitys(CreateProjectRequestDTO createProjectRequestDTO) {

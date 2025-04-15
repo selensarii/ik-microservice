@@ -1,5 +1,6 @@
 package com.example.employee.business.concretes;
 
+import com.example.common.dto.AddProjectResponseDTO;
 import com.example.employee.business.abstracts.EmployeeService;
 import com.example.employee.core.mapper.MapperService;
 import com.example.employee.core.utils.MessageConstant;
@@ -39,28 +40,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public CreateEmployeeResponseDTO addEmployee(CreateEmployeeRequestDTO createEmployeeRequestDTO) {
-        // URL'deki id parametresi için düzgün format
         String url = "http://localhost:9005/projects/v1/projectId/{projectId}";
-        ResponseEntity<ProjectDTO> responseEntity = restTemplate.getForEntity(
-                url, ProjectDTO.class, createEmployeeRequestDTO.getProjectId());
+        ResponseEntity<AddProjectResponseDTO> responseEntity = restTemplate.getForEntity(
+                url, AddProjectResponseDTO.class, createEmployeeRequestDTO.getProjectId());
 
-        // Dönen ProjectDTO'nun kontrolü
-        ProjectDTO projectDTO = responseEntity.getBody();
+        AddProjectResponseDTO addProjectResponseDTO = responseEntity.getBody();
 
-        if (projectDTO != null) {
-            // Eğer ProjectDTO başarılı bir şekilde geldi, projectId'yi güncelle
-            createEmployeeRequestDTO.setProjectId(projectDTO.getId());
+        if (addProjectResponseDTO != null) {
+            createEmployeeRequestDTO.setProjectId(addProjectResponseDTO.getId());
         }
 
-        // Employee nesnesi oluşturulup veritabanına kaydediliyor
         Employee employee = mapperService.toEntity(createEmployeeRequestDTO);
         Employee savedEmployee = employeeRepository.save(employee);
 
         return mapperService.toCreateEmployeeResponse(savedEmployee);
     }
-
-
-
+    
     @Override
     public EmployeeResponseDTO getById(String id) {
         UUID employeeId = UUID.fromString(id);

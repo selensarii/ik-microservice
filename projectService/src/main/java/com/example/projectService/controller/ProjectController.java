@@ -1,5 +1,6 @@
 package com.example.projectService.controller;
 
+import com.example.common.dto.AddProjectResponseDTO;
 import com.example.projectService.business.abstracts.ProjectService;
 import com.example.projectService.core.utils.MessageConstant;
 import com.example.projectService.dtos.request.CreateProjectRequestDTO;
@@ -30,7 +31,7 @@ public class ProjectController {
     }
 
     @GetMapping("/v1/projectId/{projectId}")
-    public ProjectResponseDto getById(@PathVariable String projectId) {
+    public AddProjectResponseDTO getById(@PathVariable String projectId) {
         return projectService.getById(projectId);
     }
 
