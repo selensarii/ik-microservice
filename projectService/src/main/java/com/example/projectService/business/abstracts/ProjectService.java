@@ -18,5 +18,9 @@ public interface ProjectService {
     UpdateProjectResponseDTO updateProject(UpdateProjectRequestDTO updateProjectRequestDTO);
     CreateProjectResponseDTO addProject(CreateProjectRequestDTO createProjectRequestDTO);
 
+    List<GetEmployeeNamesByProjectIdResponseDTO> getFindEmployeeNamesByProjectId(String projectId);
+    GetCountEmployeesByProjectIdResponseDTO getCountEmployeesByProjectId(String projectId);
+    List<GetFindEmployeesByProjectIdResponseDTO> getFindEmployeesByProjectId(String projectId);
+
 
 }

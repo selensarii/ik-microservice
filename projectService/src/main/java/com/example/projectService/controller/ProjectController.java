@@ -46,5 +46,20 @@ public class ProjectController {
         return ResponseEntity.ok(MessageConstant.PROJECT_DELETED_SUCCESSFULLY+ projectId);
     }
 
+    @GetMapping("/v1/employeeNames/projectId/{projectId}")
+    public List<GetEmployeeNamesByProjectIdResponseDTO> getEmployeeNamesByProjectId(@PathVariable String projectId) {
+        return projectService.getFindEmployeeNamesByProjectId(projectId);
+    }
+
+    @GetMapping("/v1/employeeCount/projectId/{projectId}")
+    public GetCountEmployeesByProjectIdResponseDTO getCountEmployeesByProjectId(@PathVariable String projectId) {
+        return projectService.getCountEmployeesByProjectId(projectId);
+    }
+
+    @GetMapping("/v1/employeesAll/projectId/{projectId}")
+    public List<GetFindEmployeesByProjectIdResponseDTO> getFindEmployeesByProjectId(@PathVariable String projectId) {
+        return projectService.getFindEmployeesByProjectId(projectId);
+    }
+
 
 }

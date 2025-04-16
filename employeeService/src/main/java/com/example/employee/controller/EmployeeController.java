@@ -7,13 +7,13 @@ import com.example.employee.dtos.requests.UpdateEmployeeRequestDTO;
 import com.example.employee.dtos.responses.CreateEmployeeResponseDTO;
 import com.example.employee.dtos.responses.EmployeeResponseDTO;
 import com.example.employee.dtos.responses.UpdateEmployeeResponseDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/employees")
@@ -27,15 +27,12 @@ public class EmployeeController {
 
         return employeeService.getAllEmployees();
     }
-
-
     @PostMapping
     public CreateEmployeeResponseDTO addEmployee(@RequestBody CreateEmployeeRequestDTO createEmployeeRequestDTO) {
         return employeeService.addEmployee(createEmployeeRequestDTO);
     }
-
     @PutMapping("/v1/employeeId")
-    public UpdateEmployeeResponseDTO updateEmployee(@RequestBody UpdateEmployeeRequestDTO updateEmployeeRequestDTO) throws JsonProcessingException {
+    public UpdateEmployeeResponseDTO updateEmployee(@RequestBody UpdateEmployeeRequestDTO updateEmployeeRequestDTO)  {
         return employeeService.updateEmployee(updateEmployeeRequestDTO);
     }
 
@@ -44,7 +41,11 @@ public class EmployeeController {
         employeeService.deleteEmployee(employeeId);
         return ResponseEntity.ok(MessageConstant.EMPLOYEE_DELETED_SUCCESSFULLY + employeeId);
     }
-
+    @GetMapping("/v1/employeeId/{employeeId}")
+    public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@PathVariable String employeeId) {
+        EmployeeResponseDTO responseDTO = employeeService.getById(employeeId);
+        return ResponseEntity.ok(responseDTO);
+    }
     @GetMapping("/v1/fullName/employeeId/{employeeId}")
     public String getEmployeeFullName(@PathVariable String employeeId) {
         return employeeService.getFindEmployeeFullNameById(employeeId);
